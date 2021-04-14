@@ -1,14 +1,14 @@
 import React from 'react';
 
+import Routes from './routes';
 import GlobalStyle from './styles/global';
 
-const App: React.FC = () => {
-  return (
-    <>
-      <div className="App">Poke API</div>
-      <GlobalStyle />
-    </>
-  );
-};
+const App: React.FC = () => (
+  <div className="App">
+    <Routes />
+
+    <GlobalStyle />
+  </div>
+);
 
 export default App;
