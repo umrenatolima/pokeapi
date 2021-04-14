@@ -1,7 +1,14 @@
 import React from 'react';
 
-function App(): JSX.Element {
-  return <div className="App">Poke API</div>;
-}
+import GlobalStyle from './styles/global';
+
+const App: React.FC = () => {
+  return (
+    <>
+      <div className="App">Poke API</div>
+      <GlobalStyle />
+    </>
+  );
+};
 
 export default App;
