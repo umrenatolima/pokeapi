@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { usePokedex } from '../../hooks/usePokedex';
 import { get, selectFavorites } from '../../redux/favorites/favoritesSlice';
-import pokeAPI from '../../services/pokeAPI';
-import parsePokeAPIFactory from '../../utils/parsePokeAPIFactory';
 import Input from '../Input';
 import { SearchForm, Button, FavoritesButton } from './styles';
 
@@ -19,25 +17,13 @@ const SearchBar: React.FC = () => {
   const dispatch = useDispatch();
   const favorites = useSelector(selectFavorites);
 
-  const { fetch, updateData } = usePokedex();
+  const { fetch, fetchByName, updateData } = usePokedex();
 
   const [pokemonName, setPokemonName] = useState('');
 
   useEffect(() => {
     dispatch(get());
   }, [dispatch]);
-
-  const fetchPokemonByName = useCallback(
-    async (pokemon: string) => {
-      const { data } = await pokeAPI.get(`pokemon/${pokemon}`);
-
-      const { parseByName } = parsePokeAPIFactory();
-      const parsedPokemonData = parseByName(data);
-
-      updateData(parsedPokemonData);
-    },
-    [updateData],
-  );
 
   const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPokemonName(e.target.value);
@@ -48,12 +34,12 @@ const SearchBar: React.FC = () => {
       e.preventDefault();
 
       if (pokemonName) {
-        fetchPokemonByName(pokemonName);
+        fetchByName(pokemonName);
       } else {
         fetch();
       }
     },
-    [pokemonName, fetchPokemonByName, fetch],
+    [pokemonName, fetchByName, fetch],
   );
 
   const handleShowFavoritesClick = useCallback(() => {
@@ -65,14 +51,11 @@ const SearchBar: React.FC = () => {
       <Input
         type="text"
         placeholder="Search for a pokemon by his name"
-        name="searchBar"
         onChange={handleInputChange}
       />
 
       <>
-        <Button type="submit" className="">
-          Enviar
-        </Button>
+        <Button type="submit">Send</Button>
         <FavoritesButton type="button" onClick={handleShowFavoritesClick}>
           <CgCardHearts size={55} color="#ffdd56" />
         </FavoritesButton>

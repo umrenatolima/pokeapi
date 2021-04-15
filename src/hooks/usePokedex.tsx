@@ -9,6 +9,7 @@ interface PokedexContextData {
   isLoading: boolean;
   updateData: React.Dispatch<React.SetStateAction<PokemonDTO[]>>;
   fetch: () => Promise<void>;
+  fetchByName: (pokemonName: string) => Promise<void>;
 }
 
 const PokedexContext = createContext<PokedexContextData>(
@@ -38,9 +39,26 @@ export const PokedexProvider: React.FC = ({ children }) => {
     setIsLoading(false);
   }
 
+  async function fetchByName(pokemon: string) {
+    setIsLoading(true);
+
+    try {
+      const { data: pokemonData } = await pokeAPI.get(`pokemon/${pokemon}`);
+
+      const { parseByName } = parsePokeAPIFactory();
+      const parsedPokemonData = parseByName(pokemonData);
+
+      setData(parsedPokemonData);
+    } catch (e) {
+      console.error(e);
+    }
+
+    setIsLoading(false);
+  }
+
   return (
     <PokedexContext.Provider
-      value={{ fetch, data, updateData: setData, isLoading }}
+      value={{ fetch, fetchByName, data, updateData: setData, isLoading }}
     >
       {children}
     </PokedexContext.Provider>
