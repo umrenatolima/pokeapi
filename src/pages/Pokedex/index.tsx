@@ -8,6 +8,7 @@ import {
   get as getFavorites,
   selectFavorites,
 } from '../../redux/favorites/favoritesSlice';
+import { AnimationContainer } from './styles';
 
 const Pokedex: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,10 +25,12 @@ const Pokedex: React.FC = () => {
 
   return (
     <section>
-      <h1>Pokedex</h1>
-      <SearchBar />
+      <AnimationContainer>
+        <h1>Pokedex</h1>
+        <SearchBar />
 
-      <PokeList pokemons={data} isLoading={isLoading} favorites={favorites} />
+        <PokeList pokemons={data} isLoading={isLoading} favorites={favorites} />
+      </AnimationContainer>
     </section>
   );
 };
