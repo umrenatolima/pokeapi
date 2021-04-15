@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { usePokedex } from '../../hooks/usePokedex';
 import { get, selectFavorites } from '../../redux/favorites/favoritesSlice';
 import Input from '../Input';
+
 import { SearchForm, Button, FavoritesButton } from './styles';
 
 const SearchBar: React.FC = () => {

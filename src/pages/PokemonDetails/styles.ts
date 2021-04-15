@@ -27,7 +27,7 @@ export const DetailsContainer = styled.section`
   align-items: center;
 
   h1 {
-    margin: 40px 0;
+    margin: 25px 0;
   }
 
   h3 {
@@ -51,6 +51,21 @@ export const Header = styled.header`
   }
 `;
 
-export const ImageContainer = styled.div`
-  background: white;
+export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  ul {
+    list-style: none;
+
+    li {
+      font-size: 3rem;
+    }
+  }
+
+  img {
+    height: 550px;
+    width: 550px;
+  }
 `;

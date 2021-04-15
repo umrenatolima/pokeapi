@@ -1,10 +1,12 @@
-import PokemonDTO from '../dtos/PokemonDTO';
+import PokemonDTO, { Stats, Types } from '../dtos/PokemonDTO';
 import getPokemonIdFromURL from './getPokemonIdFromURL';
 
 interface Response {
   name: string;
   url?: string;
   id?: number;
+  types?: Types[];
+  stats?: Stats[];
 }
 
 interface ParsePokeAPIFactory {
@@ -36,7 +38,11 @@ export default function parsePokeAPIFactory(): ParsePokeAPIFactory {
       name: data.name,
       id: data.id as number,
       imgURL: getImageURL(data.id as number),
+      types: data.types as Types[],
+      stats: data.stats as Stats[],
     };
+
+    console.log(parsedData);
 
     return [parsedData];
   }

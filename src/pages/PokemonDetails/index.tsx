@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import Loading from 'react-loading';
 import { useParams, useHistory } from 'react-router-dom';
 import { FaArrowCircleLeft } from 'react-icons/fa';
@@ -8,10 +8,11 @@ import { usePokedex } from '../../hooks/usePokedex';
 
 import {
   DetailsContainer,
-  ImageContainer,
   Header,
   AnimationContainer,
+  CardContainer,
 } from './styles';
+import Card from '../../components/Card';
 
 interface PokemonDetailsParams {
   id?: string;
@@ -31,6 +32,20 @@ const PokemonDetails: React.FC = () => {
     history.push('/');
   }, [history]);
 
+  const pokemonInfo = useMemo(() => {
+    if (data[0]) {
+      return {
+        name: data[0].name,
+        imgURL: data[0].imgURL,
+        id: data[0].id,
+        stats: data[0].stats,
+        types: data[0].types,
+      };
+    }
+
+    return data[0];
+  }, [data]);
+
   return (
     <DetailsContainer>
       <AnimationContainer>
@@ -42,13 +57,26 @@ const PokemonDetails: React.FC = () => {
         </Header>
 
         {isLoading && <Loading />}
-        {!isLoading && data[0] && (
-          <HoloCard>
-            <ImageContainer>
-              <img src={data[0].imgURL} alt={`${data[0].name} sprite`} />
-            </ImageContainer>
-            <h3>{data[0].name}</h3>
-          </HoloCard>
+        {!isLoading && pokemonInfo && (
+          <CardContainer>
+            <HoloCard>
+              <img
+                src={pokemonInfo.imgURL}
+                alt={`${pokemonInfo.name} sprite`}
+              />
+              <Card>
+                <h3>{pokemonInfo.name}</h3>
+                {pokemonInfo.types && (
+                  <ul>
+                    {pokemonInfo.types &&
+                      pokemonInfo.types.map(({ type }) => (
+                        <li key={`${type.name}`}>{type.name}</li>
+                      ))}
+                  </ul>
+                )}
+              </Card>
+            </HoloCard>
+          </CardContainer>
         )}
       </AnimationContainer>
     </DetailsContainer>
