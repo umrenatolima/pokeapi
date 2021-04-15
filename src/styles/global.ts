@@ -10,6 +10,23 @@ export default createGlobalStyle`
 
   body {
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+
+    min-height: 100vh;
+    max-width: 70vw;
+
+    background: linear-gradient(to bottom right,#141e30,#243b55);
+    color: #fff;
+    text-align: center;
+  }
+
+  #root {
+    width: 100%;
+    height: 100%;
   }
 
   body, input, button {
@@ -17,11 +34,18 @@ export default createGlobalStyle`
     font-size: 16px;
   }
 
-  h1, h2, h3, h4, h5, h6, strong {
+  h1, h2, h3 {
     font-weight: 500;
+  }
+
+  h1 {
+    font-size: 4em;
   }
 
   button {
     cursor: pointer;
+
+    background: none;
+    border: none;
   }
 `;
