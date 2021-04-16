@@ -51,12 +51,12 @@ const SearchBar: React.FC = () => {
     <SearchForm onSubmit={handleOnSubmit}>
       <Input
         type="text"
-        placeholder="Search for a pokemon by his name"
+        placeholder="Search for a pokemon by its name"
         onChange={handleInputChange}
       />
 
       <>
-        <Button type="submit">Send</Button>
+        <Button type="submit">Search</Button>
         <FavoritesButton type="button" onClick={handleShowFavoritesClick}>
           <CgCardHearts size={55} color="#ffdd56" />
         </FavoritesButton>

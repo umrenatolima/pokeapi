@@ -45,25 +45,27 @@ const PokeList: React.FC<PokeListProps> = ({
   return (
     <>
       {isLoading && <Loading />}
-      {!isLoading && pokemons.length && (
-        <CardsList>
-          {pokemons.map((pokemon: PokemonDTO) => (
-            <Item key={pokemon.name}>
-              <Card>
-                <FloatingButton
-                  type="button"
-                  onClick={() => handleFavoriteClick(pokemon)}
-                >
-                  <FavIcon favorites={favorites} pokemon={pokemon} />
-                </FloatingButton>
-                <img src={pokemon.imgURL} alt={`${pokemon.name} sprite`} />
-                <Link to={`/pokemon/${pokemon.id}`}>{pokemon.name}</Link>
-              </Card>
-            </Item>
-          ))}
-        </CardsList>
-      )}
-      {!isLoading && !pokemons.length && <p>No results found!</p>}
+      {!isLoading &&
+        (pokemons.length > 0 ? (
+          <CardsList>
+            {pokemons.map((pokemon: PokemonDTO) => (
+              <Item key={pokemon.name}>
+                <Card>
+                  <FloatingButton
+                    type="button"
+                    onClick={() => handleFavoriteClick(pokemon)}
+                  >
+                    <FavIcon favorites={favorites} pokemon={pokemon} />
+                  </FloatingButton>
+                  <img src={pokemon.imgURL} alt={`${pokemon.name} sprite`} />
+                  <Link to={`/pokemon/${pokemon.id}`}>{pokemon.name}</Link>
+                </Card>
+              </Item>
+            ))}
+          </CardsList>
+        ) : (
+          <p>No results found!</p>
+        ))}
     </>
   );
 };
