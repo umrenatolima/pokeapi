@@ -42,8 +42,6 @@ export default function parsePokeAPIFactory(): ParsePokeAPIFactory {
       stats: data.stats as Stats[],
     };
 
-    console.log(parsedData);
-
     return [parsedData];
   }
 
