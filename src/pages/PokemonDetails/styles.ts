@@ -35,20 +35,6 @@ export const DetailsContainer = styled.section`
   }
 `;
 
-export const Header = styled.header`
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-
-  button {
-    margin-right: 3rem;
-
-    svg {
-      color: #ffdd56;
-    }
-  }
-`;
-
 export const Content = styled.div`
   display: flex;
   flex-direction: column;

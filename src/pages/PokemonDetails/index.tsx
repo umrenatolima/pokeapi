@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { FaArrowCircleLeft } from 'react-icons/fa';
+import React, { useEffect, useMemo } from 'react';
 import Loading from 'react-loading';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Card from '../../components/Card';
+import Header from '../../components/Header';
 import HoloCard from '../../components/HoloCard';
 import StatsTable from '../../components/StatsTable';
 import { usePokedex } from '../../hooks/usePokedex';
@@ -11,7 +11,6 @@ import {
   AnimationContainer,
   Content,
   DetailsContainer,
-  Header,
   ImageContainer,
 } from './styles';
 
@@ -21,17 +20,12 @@ interface PokemonDetailsParams {
 
 const PokemonDetails: React.FC = () => {
   const { id } = useParams<PokemonDetailsParams>();
-  const history = useHistory();
 
   const { fetchByName, data, isLoading } = usePokedex();
 
   useEffect(() => {
     fetchByName(id as string);
   }, [id]);
-
-  const handleOnBackButtonClick = useCallback(() => {
-    history.push('/');
-  }, [history]);
 
   const pokemonInfo = useMemo(() => {
     if (data && data[0]) {
@@ -50,12 +44,7 @@ const PokemonDetails: React.FC = () => {
   return (
     <DetailsContainer>
       <AnimationContainer>
-        <Header>
-          <button type="button" onClick={handleOnBackButtonClick}>
-            <FaArrowCircleLeft size={60} />
-          </button>
-          <h1>Pokedex</h1>
-        </Header>
+        <Header hasBackButton />
 
         {isLoading && <Loading />}
         {!isLoading && pokemonInfo && (
