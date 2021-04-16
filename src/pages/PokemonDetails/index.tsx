@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-import Loading from 'react-loading';
-import { useParams, useHistory } from 'react-router-dom';
 import { FaArrowCircleLeft } from 'react-icons/fa';
+import Loading from 'react-loading';
+import { useHistory, useParams } from 'react-router-dom';
 
+import Card from '../../components/Card';
 import HoloCard from '../../components/HoloCard';
+import StatsTable from '../../components/StatsTable';
 import { usePokedex } from '../../hooks/usePokedex';
-
 import {
+  AnimationContainer,
+  Content,
   DetailsContainer,
   Header,
-  AnimationContainer,
-  CardContainer,
   ImageContainer,
 } from './styles';
-import Card from '../../components/Card';
 
 interface PokemonDetailsParams {
   id?: string;
@@ -59,7 +59,7 @@ const PokemonDetails: React.FC = () => {
 
         {isLoading && <Loading />}
         {!isLoading && pokemonInfo && (
-          <CardContainer>
+          <Content>
             <HoloCard>
               <ImageContainer>
                 <img
@@ -67,19 +67,26 @@ const PokemonDetails: React.FC = () => {
                   alt={`${pokemonInfo.name} sprite`}
                 />
               </ImageContainer>
-              <Card>
-                <h3>{pokemonInfo.name}</h3>
-                {pokemonInfo.types && (
-                  <ul>
-                    {pokemonInfo.types &&
-                      pokemonInfo.types.map(({ type }) => (
-                        <li key={`${type.name}`}>{type.name}</li>
-                      ))}
-                  </ul>
-                )}
-              </Card>
             </HoloCard>
-          </CardContainer>
+
+            <Card containerClassName="info-table">
+              <h3>{pokemonInfo.name}</h3>
+              {pokemonInfo.types && (
+                <ul className="list-types">
+                  {pokemonInfo.types.map(({ type }) => (
+                    <li key={`${type.name}`}>{type.name}</li>
+                  ))}
+                </ul>
+              )}
+            </Card>
+
+            {pokemonInfo.stats && (
+              <StatsTable
+                containerClassName="stats-table"
+                stats={pokemonInfo.stats}
+              />
+            )}
+          </Content>
         )}
       </AnimationContainer>
     </DetailsContainer>

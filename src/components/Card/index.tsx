@@ -1,9 +1,16 @@
 import React from 'react';
 
-import { PokemonCard } from './styles';
+import { CardContainer } from './styles';
 
-const Card: React.FC = ({ children }): JSX.Element => (
-  <PokemonCard>{children}</PokemonCard>
+interface CardProps {
+  containerClassName?: string;
+}
+
+const Card: React.FC<CardProps> = ({
+  children,
+  containerClassName,
+}): JSX.Element => (
+  <CardContainer className={containerClassName || ''}>{children}</CardContainer>
 );
 
 export default Card;

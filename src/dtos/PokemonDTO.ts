@@ -9,8 +9,14 @@ export interface Types {
   type: Type;
 }
 
-export interface Stats {
+interface Stat {
   name: string;
+  url: string;
+}
+
+export interface Stats {
+  stat: Stat;
+  effort: number;
   base_stat: number;
 }
 

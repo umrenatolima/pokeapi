@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PokemonCard = styled.section`
+export const CardContainer = styled.section`
   height: 100%;
   width: 100%;
 

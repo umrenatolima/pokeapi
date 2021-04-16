@@ -16,8 +16,6 @@ export const AnimationContainer = styled.div`
   flex-direction: column;
   place-content: center;
   align-items: center;
-  /* width: 100%;
-  height: 100%; */
 
   animation: ${appearFromRight} 1s;
 `;
@@ -51,17 +49,29 @@ export const Header = styled.header`
   }
 `;
 
-export const CardContainer = styled.div`
+export const Content = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
 
-  ul {
+  ul.list-types {
     list-style: none;
 
     li {
       font-size: 3rem;
     }
+  }
+
+  .info-table {
+    margin-top: 90px;
+  }
+
+  .stats-table {
+    font-size: 2.5rem;
+    position: absolute;
+
+    top: 150px;
+    right: -500px;
   }
 `;
 
