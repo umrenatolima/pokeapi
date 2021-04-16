@@ -21,3 +21,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### It should be able to list only favorite pokemons by clicking the button besides the search button
 
 ### It should be able to show pokemon details information when clicking its name
+
+## TODO
+
+### Infinite scroll
