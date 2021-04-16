@@ -7,7 +7,7 @@ import PokemonDTO from '../../dtos/PokemonDTO';
 import { add, remove } from '../../redux/favorites/favoritesSlice';
 import Card from '../Card';
 import FavIcon from '../FavIcon';
-import { CardsList, FloatingButton, Item } from './styles';
+import { CardsList, FloatingButton, Item, ImageContainer } from './styles';
 
 interface PokeListProps {
   isLoading: boolean;
@@ -57,7 +57,9 @@ const PokeList: React.FC<PokeListProps> = ({
                   >
                     <FavIcon favorites={favorites} pokemon={pokemon} />
                   </FloatingButton>
-                  <img src={pokemon.imgURL} alt={`${pokemon.name} sprite`} />
+                  <ImageContainer>
+                    <img src={pokemon.imgURL} alt={`${pokemon.name} sprite`} />
+                  </ImageContainer>
                   <Link to={`/pokemon/${pokemon.id}`}>{pokemon.name}</Link>
                 </Card>
               </Item>

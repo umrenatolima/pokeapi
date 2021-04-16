@@ -63,9 +63,14 @@ export const CardContainer = styled.div`
       font-size: 3rem;
     }
   }
+`;
+
+export const ImageContainer = styled.div`
+  height: 550px;
+  width: 550px;
 
   img {
-    height: 550px;
-    width: 550px;
+    height: 100%;
+    width: 100%;
   }
 `;

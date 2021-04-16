@@ -56,4 +56,28 @@ export const FloatingButton = styled.button`
   top: 20px;
 
   opacity: 0.8;
+
+  @media screen and (max-width: 1280px) {
+    left: 5px;
+  }
+`;
+
+export const ImageContainer = styled.div`
+  height: 475px;
+  width: 470px;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 1920px) {
+    height: 320px;
+    width: 320px;
+  }
+
+  @media screen and (max-width: 1280px) {
+    height: 200px;
+    width: 230px;
+  }
 `;

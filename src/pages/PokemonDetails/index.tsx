@@ -11,6 +11,7 @@ import {
   Header,
   AnimationContainer,
   CardContainer,
+  ImageContainer,
 } from './styles';
 import Card from '../../components/Card';
 
@@ -60,10 +61,12 @@ const PokemonDetails: React.FC = () => {
         {!isLoading && pokemonInfo && (
           <CardContainer>
             <HoloCard>
-              <img
-                src={pokemonInfo.imgURL}
-                alt={`${pokemonInfo.name} sprite`}
-              />
+              <ImageContainer>
+                <img
+                  src={pokemonInfo.imgURL}
+                  alt={`${pokemonInfo.name} sprite`}
+                />
+              </ImageContainer>
               <Card>
                 <h3>{pokemonInfo.name}</h3>
                 {pokemonInfo.types && (
