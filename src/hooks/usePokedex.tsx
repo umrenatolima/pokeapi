@@ -51,6 +51,7 @@ export const PokedexProvider: React.FC = ({ children }) => {
       setData(parsedPokemonData);
     } catch (e) {
       console.error(e);
+      setData([]);
     }
 
     setIsLoading(false);
