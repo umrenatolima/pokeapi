@@ -1,59 +1,40 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Loading from 'react-loading';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import PokemonDTO from '../../dtos/PokemonDTO';
-import { add, remove } from '../../redux/favorites/favoritesSlice';
+import { usePokedex } from '../../hooks/usePokedex';
 import Card from '../Card';
 import FavIcon from '../FavIcon';
 import { CardsList, FloatingButton, Item, ImageContainer } from './styles';
+import useFavorite from '../../hooks/useFavorite';
 
-interface PokeListProps {
-  isLoading: boolean;
-  pokemons: PokemonDTO[];
-  favorites: PokemonDTO[];
-}
+const PokeList: React.FC = () => {
+  const { favorites, onFavoriteClick } = useFavorite();
+  const { data, isLoading, fetch } = usePokedex();
 
-const PokeList: React.FC<PokeListProps> = ({
-  isLoading,
-  pokemons,
-  favorites,
-}) => {
-  const dispatch = useDispatch();
+  const initialDataLoad = useCallback(async () => {
+    if (!data) {
+      await fetch();
+    }
+  }, [data, fetch]);
 
-  const handleFavoriteClick = useCallback(
-    (pokemon: PokemonDTO) => {
-      const findIndex = favorites.findIndex(
-        favorite => favorite.id === pokemon.id,
-      );
-
-      if (findIndex > -1) {
-        const removedFavorite = [...favorites];
-        removedFavorite.splice(findIndex, 1);
-
-        dispatch(remove(removedFavorite));
-      } else {
-        const newFavorites = [...favorites, pokemon];
-
-        dispatch(add(newFavorites));
-      }
-    },
-    [dispatch, favorites],
-  );
+  useEffect(() => {
+    initialDataLoad();
+  }, [initialDataLoad]);
 
   return (
     <>
       {isLoading && <Loading />}
       {!isLoading &&
-        (pokemons.length > 0 ? (
+        (!!data && data.length > 0 ? (
           <CardsList>
-            {pokemons.map((pokemon: PokemonDTO) => (
+            {data.map((pokemon: PokemonDTO) => (
               <Item key={pokemon.name}>
                 <Card>
                   <FloatingButton
                     type="button"
-                    onClick={() => handleFavoriteClick(pokemon)}
+                    onClick={() => onFavoriteClick(pokemon)}
                   >
                     <FavIcon favorites={favorites} pokemon={pokemon} />
                   </FloatingButton>

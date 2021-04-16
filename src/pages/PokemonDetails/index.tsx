@@ -34,7 +34,7 @@ const PokemonDetails: React.FC = () => {
   }, [history]);
 
   const pokemonInfo = useMemo(() => {
-    if (data[0]) {
+    if (data && data[0]) {
       return {
         name: data[0].name,
         imgURL: data[0].imgURL,
@@ -44,7 +44,7 @@ const PokemonDetails: React.FC = () => {
       };
     }
 
-    return data[0];
+    return null;
   }, [data]);
 
   return (

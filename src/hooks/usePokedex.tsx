@@ -5,9 +5,9 @@ import pokeAPI from '../services/pokeAPI';
 import parsePokeAPIFactory from '../utils/parsePokeAPIFactory';
 
 interface PokedexContextData {
-  data: PokemonDTO[];
+  data: PokemonDTO[] | null;
   isLoading: boolean;
-  updateData: React.Dispatch<React.SetStateAction<PokemonDTO[]>>;
+  updateData: React.Dispatch<React.SetStateAction<PokemonDTO[] | null>>;
   fetch: () => Promise<void>;
   fetchByName: (pokemonName: string) => Promise<void>;
 }
@@ -17,7 +17,7 @@ const PokedexContext = createContext<PokedexContextData>(
 );
 
 export const PokedexProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<PokemonDTO[]>([]);
+  const [data, setData] = useState<PokemonDTO[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   async function fetch() {
