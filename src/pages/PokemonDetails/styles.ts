@@ -16,6 +16,8 @@ export const AnimationContainer = styled.div`
   flex-direction: column;
   place-content: center;
   align-items: center;
+  /* width: 100%;
+  height: 100%; */
 
   animation: ${appearFromRight} 1s;
 `;
@@ -36,14 +38,12 @@ export const DetailsContainer = styled.section`
 `;
 
 export const Header = styled.header`
-  width: 100%;
-  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
 
   button {
-    position: absolute;
-
-    left: 0;
-    top: 40px;
+    margin-right: 3rem;
 
     svg {
       color: #ffdd56;
