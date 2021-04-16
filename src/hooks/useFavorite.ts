@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import PokemonDTO from '../dtos/PokemonDTO';
 import {
+  get,
   add,
   remove,
   selectFavorites,
@@ -15,6 +17,10 @@ interface Response {
 export default function useFavorite(): Response {
   const dispatch = useDispatch();
   const favorites = useSelector(selectFavorites);
+
+  useEffect(() => {
+    dispatch(get());
+  }, []);
 
   function onFavoriteClick(pokemon: PokemonDTO): void {
     const findIndex = favorites.findIndex(

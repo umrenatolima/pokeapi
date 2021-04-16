@@ -1,30 +1,17 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { CgCardHearts } from 'react-icons/cg';
-import { useDispatch, useSelector } from 'react-redux';
 
+import useFavorite from '../../hooks/useFavorite';
 import { usePokedex } from '../../hooks/usePokedex';
-import { get, selectFavorites } from '../../redux/favorites/favoritesSlice';
 import Input from '../Input';
-
-import { SearchForm, Button, FavoritesButton } from './styles';
+import { Button, FavoritesButton, SearchForm } from './styles';
 
 const SearchBar: React.FC = () => {
-  const dispatch = useDispatch();
-  const favorites = useSelector(selectFavorites);
+  const { favorites } = useFavorite();
 
   const { fetch, fetchByName, updateData } = usePokedex();
 
   const [pokemonName, setPokemonName] = useState('');
-
-  useEffect(() => {
-    dispatch(get());
-  }, [dispatch]);
 
   const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPokemonName(e.target.value);
