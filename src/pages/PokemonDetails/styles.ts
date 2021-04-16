@@ -73,6 +73,27 @@ export const Content = styled.div`
     top: 150px;
     right: -500px;
   }
+
+  @media screen and (max-width: 1920px) {
+    .stats-table {
+      font-size: 2rem;
+
+      right: -400px;
+    }
+  }
+
+  @media screen and (max-width: 1280px) {
+    .info-table {
+      margin-top: 40px;
+    }
+
+    .stats-table {
+      font-size: 2rem;
+
+      top: 80px;
+      right: -400px;
+    }
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -82,5 +103,10 @@ export const ImageContainer = styled.div`
   img {
     height: 100%;
     width: 100%;
+  }
+
+  @media screen and (max-width: 1280px) {
+    height: 350px;
+    width: 350px;
   }
 `;

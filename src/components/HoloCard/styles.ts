@@ -10,4 +10,9 @@ export const HoloCardContainer = styled.div`
   flex-direction: column;
   vertical-align: middle;
   margin: 20px 10px;
+
+  @media screen and (max-width: 1280px) {
+    height: 300px;
+    width: 300px;
+  }
 `;
