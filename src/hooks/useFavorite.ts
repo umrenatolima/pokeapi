@@ -2,12 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import PokemonDTO from '../dtos/PokemonDTO';
-import {
-  get,
-  add,
-  remove,
-  selectFavorites,
-} from '../redux/favorites/favoritesSlice';
+import { add, get, remove, selectFavorites } from '../redux/favorites';
 
 interface Response {
   favorites: PokemonDTO[];
