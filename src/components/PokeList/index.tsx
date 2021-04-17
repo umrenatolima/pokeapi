@@ -1,42 +1,49 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Loading from 'react-loading';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import PokemonDTO from '../../dtos/PokemonDTO';
-import { usePokedex } from '../../hooks/usePokedex';
+import { PokemonDTO, getPokemons, selectPokemons } from '../../redux/pokemons';
+import {
+  getFavoritePokemonsFromCache,
+  selectFavorites,
+  updateFavoritePokemons,
+} from '../../redux/favorites';
+
 import Card from '../Card';
 import FavIcon from '../FavIcon';
-import { CardsList, FloatingButton, Item, ImageContainer } from './styles';
-import useFavorite from '../../hooks/useFavorite';
+
+import { CardsList, FloatingButton, ImageContainer, Item } from './styles';
 
 const PokeList: React.FC = () => {
-  const { favorites, onFavoriteClick } = useFavorite();
-  const { data, isLoading, fetch } = usePokedex();
+  const dispatch = useDispatch();
 
-  const initialDataLoad = useCallback(async () => {
-    if (!data) {
-      await fetch();
-    }
-  }, [data, fetch]);
+  const { isLoading, pokemons } = useSelector(selectPokemons);
+  const { favoritePokemons } = useSelector(selectFavorites);
 
   useEffect(() => {
-    initialDataLoad();
-  }, [initialDataLoad]);
+    dispatch(getPokemons());
+    dispatch(getFavoritePokemonsFromCache());
+  }, [dispatch]);
+
+  const onFavoriteClick = (pokemon: PokemonDTO): void => {
+    dispatch(updateFavoritePokemons(pokemon));
+  };
 
   return (
     <>
       {isLoading && <Loading />}
       {!isLoading &&
-        (!!data && data.length > 0 ? (
+        (!!pokemons && pokemons.length > 0 ? (
           <CardsList>
-            {data.map((pokemon: PokemonDTO) => (
+            {pokemons.map((pokemon: PokemonDTO) => (
               <Item key={pokemon.name}>
                 <Card>
                   <FloatingButton
                     type="button"
                     onClick={() => onFavoriteClick(pokemon)}
                   >
-                    <FavIcon favorites={favorites} pokemon={pokemon} />
+                    <FavIcon favorites={favoritePokemons} pokemon={pokemon} />
                   </FloatingButton>
                   <ImageContainer>
                     <img src={pokemon.imgURL} alt={`${pokemon.name} sprite`} />

@@ -1,9 +1,9 @@
-import PokemonDTO from '../../dtos/PokemonDTO';
+import { PokemonDTO } from '../pokemons';
 
 export interface FavoritesState {
-  pokemons: PokemonDTO[];
+  favoritePokemons: PokemonDTO[];
 }
 
 export const initialState: FavoritesState = {
-  pokemons: [],
+  favoritePokemons: [],
 };

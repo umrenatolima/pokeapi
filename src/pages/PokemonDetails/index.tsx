@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
 import Loading from 'react-loading';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import HoloCard from '../../components/HoloCard';
 import StatsTable from '../../components/StatsTable';
-import { usePokedex } from '../../hooks/usePokedex';
+import { selectPokemons, getPokemonsByName } from '../../redux/pokemons';
 import {
   AnimationContainer,
   Content,
@@ -19,27 +20,27 @@ interface PokemonDetailsParams {
 }
 
 const PokemonDetails: React.FC = () => {
+  const dispatch = useDispatch();
+  const { isLoading, pokemons } = useSelector(selectPokemons);
   const { id } = useParams<PokemonDetailsParams>();
 
-  const { fetchByName, data, isLoading } = usePokedex();
-
   useEffect(() => {
-    fetchByName(id as string);
-  }, [id]);
+    dispatch(getPokemonsByName(id as string));
+  }, [id, dispatch]);
 
   const pokemonInfo = useMemo(() => {
-    if (data && data[0]) {
+    if (pokemons && pokemons[0]) {
       return {
-        name: data[0].name,
-        imgURL: data[0].imgURL,
-        id: data[0].id,
-        stats: data[0].stats,
-        types: data[0].types,
+        name: pokemons[0].name,
+        imgURL: pokemons[0].imgURL,
+        id: pokemons[0].id,
+        stats: pokemons[0].stats,
+        types: pokemons[0].types,
       };
     }
 
     return null;
-  }, [data]);
+  }, [pokemons]);
 
   return (
     <DetailsContainer>

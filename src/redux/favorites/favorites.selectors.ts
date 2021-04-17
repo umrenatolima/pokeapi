@@ -1,5 +1,5 @@
-import PokemonDTO from '../../dtos/PokemonDTO';
-import { RootState } from '../store';
+import { RootStore } from '../store';
+import { FavoritesState } from './favorites.state';
 
-export const selectFavorites = (state: RootState): PokemonDTO[] =>
-  state.favorites.pokemons;
+export const selectFavorites = (state: RootStore): FavoritesState =>
+  state.favorites;

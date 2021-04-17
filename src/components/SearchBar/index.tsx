@@ -1,15 +1,21 @@
 import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { CgCardHearts } from 'react-icons/cg';
+import { useDispatch, useSelector } from 'react-redux';
 
-import useFavorite from '../../hooks/useFavorite';
-import { usePokedex } from '../../hooks/usePokedex';
+import { selectFavorites } from '../../redux/favorites';
+import {
+  getPokemons,
+  getPokemonsByName,
+  updatePokemons,
+} from '../../redux/pokemons';
 import Input from '../Input';
+
 import { Button, FavoritesButton, SearchForm } from './styles';
 
 const SearchBar: React.FC = () => {
-  const { favorites } = useFavorite();
+  const dispatch = useDispatch();
 
-  const { fetch, fetchByName, updateData } = usePokedex();
+  const { favoritePokemons } = useSelector(selectFavorites);
 
   const [pokemonName, setPokemonName] = useState('');
 
@@ -22,17 +28,17 @@ const SearchBar: React.FC = () => {
       e.preventDefault();
 
       if (pokemonName) {
-        fetchByName(pokemonName);
+        dispatch(getPokemonsByName(pokemonName));
       } else {
-        fetch();
+        dispatch(getPokemons());
       }
     },
-    [pokemonName, fetchByName, fetch],
+    [pokemonName, dispatch],
   );
 
   const handleShowFavoritesClick = useCallback(() => {
-    updateData(favorites);
-  }, [favorites, updateData]);
+    dispatch(updatePokemons(favoritePokemons));
+  }, [favoritePokemons, dispatch]);
 
   return (
     <SearchForm onSubmit={handleOnSubmit}>

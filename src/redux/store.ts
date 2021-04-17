@@ -1,13 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { applyMiddleware, compose, createStore } from 'redux';
+import thunk from 'redux-thunk';
 
-import { favoritesSlice } from './favorites/favorites.slice';
+import RootReducer from './rootReducer';
 
-const store = configureStore({
-  reducer: {
-    favorites: favoritesSlice.reducer,
-  },
-});
+const store = createStore(RootReducer, compose(applyMiddleware(thunk)));
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootStore = ReturnType<typeof RootReducer>;
 
 export default store;
