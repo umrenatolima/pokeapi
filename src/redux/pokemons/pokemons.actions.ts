@@ -1,8 +1,9 @@
 import { Dispatch } from 'redux';
+
 import pokeAPI from '../../services/pokeAPI';
+import { Pokemon } from '../../types/Pokemon';
 import parsePokeAPIFactory from '../../utils/parsePokeAPIFactory';
 import {
-  PokemonDTO,
   PokemonsDispatchTypes,
   POKEMONS_FAIL,
   POKEMONS_LOADING,
@@ -58,7 +59,7 @@ export const getPokemonsByName = (pokemonName: string) => async (
   }
 };
 
-export const updatePokemons = (pokemons: PokemonDTO[]) => async (
+export const updatePokemons = (pokemons: Pokemon[]) => async (
   dispatch: Dispatch<PokemonsDispatchTypes>,
 ): Promise<void> => {
   dispatch({

@@ -1,29 +1,29 @@
 /* eslint-disable camelcase */
-interface Type {
+type Type = {
   name: string;
   url: string;
-}
+};
 
-export interface Types {
+export type Types = {
   slot: number;
   type: Type;
-}
+};
 
-interface Stat {
+type Stat = {
   name: string;
   url: string;
-}
+};
 
-export interface Stats {
+export type Stats = {
   stat: Stat;
   effort: number;
   base_stat: number;
-}
+};
 
-export default interface PokemonDTO {
+export type Pokemon = {
   name: string;
   imgURL: string;
   id: number;
   types?: Types[];
   stats?: Stats[];
-}
+};

@@ -3,13 +3,13 @@ import Loading from 'react-loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { PokemonDTO, getPokemons, selectPokemons } from '../../redux/pokemons';
 import {
   getFavoritePokemonsFromCache,
   selectFavorites,
   updateFavoritePokemons,
 } from '../../redux/favorites';
-
+import { getPokemons, selectPokemons } from '../../redux/pokemons';
+import { Pokemon } from '../../types/Pokemon';
 import Card from '../Card';
 import FavIcon from '../FavIcon';
 
@@ -26,7 +26,7 @@ const PokeList: React.FC = () => {
     dispatch(getFavoritePokemonsFromCache());
   }, [dispatch]);
 
-  const onFavoriteClick = (pokemon: PokemonDTO): void => {
+  const onFavoriteClick = (pokemon: Pokemon): void => {
     dispatch(updateFavoritePokemons(pokemon));
   };
 
@@ -36,7 +36,7 @@ const PokeList: React.FC = () => {
       {!isLoading &&
         (!!pokemons && pokemons.length > 0 ? (
           <CardsList>
-            {pokemons.map((pokemon: PokemonDTO) => (
+            {pokemons.map((pokemon: Pokemon) => (
               <Item key={pokemon.name}>
                 <Card>
                   <FloatingButton

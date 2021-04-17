@@ -1,32 +1,4 @@
-/* eslint-disable camelcase */
-interface Type {
-  name: string;
-  url: string;
-}
-
-export interface Types {
-  slot: number;
-  type: Type;
-}
-
-interface Stat {
-  name: string;
-  url: string;
-}
-
-export interface Stats {
-  stat: Stat;
-  effort: number;
-  base_stat: number;
-}
-
-export interface PokemonDTO {
-  name: string;
-  imgURL: string;
-  id: number;
-  types?: Types[];
-  stats?: Stats[];
-}
+import { Pokemon } from '../../types/Pokemon';
 
 export const POKEMONS_LOADING = 'POKEMONS_LOADING';
 export const POKEMONS_FAIL = 'POKEMONS_FAIL';
@@ -39,12 +11,12 @@ export interface PokemonsLoading {
 
 export interface PokemonsSuccess {
   type: typeof POKEMONS_SUCCESS;
-  payload: PokemonDTO[];
+  payload: Pokemon[];
 }
 
 export interface PokemonsUpdate {
   type: typeof POKEMONS_UPDATE;
-  payload: PokemonDTO[];
+  payload: Pokemon[];
 }
 
 export interface PokemonsFail {

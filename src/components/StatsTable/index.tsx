@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { StatsList, ListITem } from './styles';
-import { Stats } from '../../dtos/PokemonDTO';
+import { Stats } from '../../types/Pokemon';
 
 interface StatsTableProps {
   stats: Stats[];

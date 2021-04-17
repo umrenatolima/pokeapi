@@ -1,12 +1,12 @@
 import React from 'react';
 import { RiHeartAddLine, RiHeartFill } from 'react-icons/ri';
 
-import PokemonDTO from '../../dtos/PokemonDTO';
+import { Pokemon } from '../../types/Pokemon';
 import isAFavoritePokemon from '../../utils/isAFavoritePokemon';
 
 interface FavIconProps {
-  favorites: PokemonDTO[];
-  pokemon: PokemonDTO;
+  favorites: Pokemon[];
+  pokemon: Pokemon;
 }
 
 const FavIcon: React.FC<FavIconProps> = ({

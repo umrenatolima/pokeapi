@@ -1,4 +1,4 @@
-import PokemonDTO, { Stats, Types } from '../dtos/PokemonDTO';
+import { Pokemon, Stats, Types } from '../types/Pokemon';
 import getPokemonIdFromURL from './getPokemonIdFromURL';
 
 interface Response {
@@ -10,8 +10,8 @@ interface Response {
 }
 
 interface ParsePokeAPIFactory {
-  parse: (data: Response[]) => PokemonDTO[];
-  parseByName: (data: Response) => PokemonDTO[];
+  parse: (data: Response[]) => Pokemon[];
+  parseByName: (data: Response) => Pokemon[];
 }
 
 export default function parsePokeAPIFactory(): ParsePokeAPIFactory {
@@ -19,7 +19,7 @@ export default function parsePokeAPIFactory(): ParsePokeAPIFactory {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
   }
 
-  function parse(data: Response[]): PokemonDTO[] {
+  function parse(data: Response[]): Pokemon[] {
     const parsedData = data.map(pokemon => {
       const id = getPokemonIdFromURL(pokemon.url as string);
 
@@ -33,7 +33,7 @@ export default function parsePokeAPIFactory(): ParsePokeAPIFactory {
     return parsedData;
   }
 
-  function parseByName(data: Response): PokemonDTO[] {
+  function parseByName(data: Response): Pokemon[] {
     const parsedData = {
       name: data.name,
       id: data.id as number,

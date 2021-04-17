@@ -1,9 +1,10 @@
 import { Dispatch } from 'react';
-import { PokemonDTO } from '../pokemons';
+
+import { Pokemon } from '../../types/Pokemon';
 import { RootStore } from '../store';
 import { FavoritesDispatchTypes, UPDATE_FAVORITES } from './favorites.types';
 
-export const updateFavoritePokemons = (pokemon: PokemonDTO) => (
+export const updateFavoritePokemons = (pokemon: Pokemon) => (
   dispatch: Dispatch<FavoritesDispatchTypes>,
   getState: () => RootStore,
 ): void => {
@@ -15,13 +16,13 @@ export const updateFavoritePokemons = (pokemon: PokemonDTO) => (
     favorite => favorite.id === pokemon.id,
   );
 
-  let updatedFavorites = [];
-  if (foundIndex > -1) {
-    updatedFavorites = [...favoritePokemons];
-    updatedFavorites.splice(foundIndex, 1);
-  } else {
-    updatedFavorites = [...favoritePokemons, pokemon];
-  }
+  const updatedFavorites =
+    foundIndex > -1
+      ? [
+          ...favoritePokemons.slice(0, foundIndex),
+          ...favoritePokemons.slice(foundIndex + 1),
+        ]
+      : [...favoritePokemons, pokemon];
 
   localStorage.setItem('@pokeAPI:favorites', JSON.stringify(updatedFavorites));
 

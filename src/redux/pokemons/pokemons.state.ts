@@ -1,7 +1,7 @@
-import { PokemonDTO } from '.';
+import { Pokemon } from '../../types/Pokemon';
 
 export interface PokemonsState {
-  pokemons: PokemonDTO[] | null;
+  pokemons: Pokemon[] | null;
   isLoading: boolean;
   error: string | null;
 }

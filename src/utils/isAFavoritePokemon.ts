@@ -1,8 +1,8 @@
-import PokemonDTO from '../dtos/PokemonDTO';
+import { Pokemon } from '../types/Pokemon';
 
 interface Params {
-  pokemon: PokemonDTO;
-  favoritePokemons: PokemonDTO[];
+  pokemon: Pokemon;
+  favoritePokemons: Pokemon[];
 }
 
 export default function isAFavoritePokemon({

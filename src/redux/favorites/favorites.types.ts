@@ -1,11 +1,11 @@
-import { PokemonDTO } from '../pokemons';
+import { Pokemon } from '../../types/Pokemon';
 
 export const UPDATE_FAVORITES = 'UPDATE_FAVORITES';
 
 export interface UPDATE_FAVORITES {
   type: typeof UPDATE_FAVORITES;
   payload: {
-    favoritePokemons: PokemonDTO[];
+    favoritePokemons: Pokemon[];
   };
 }
 
