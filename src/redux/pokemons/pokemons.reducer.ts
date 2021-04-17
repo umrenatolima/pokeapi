@@ -20,14 +20,13 @@ export const pokemonsReducer = (
       };
     case POKEMONS_SUCCESS:
       return {
-        ...state,
         pokemons: action.payload,
         isLoading: false,
         error: null,
       };
     case POKEMONS_FAIL:
       return {
-        ...state,
+        pokemons: [],
         isLoading: false,
         error: action.payload.error,
       };
