@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Loading from 'react-loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -14,7 +13,13 @@ import { Pokemon } from '../../types/Pokemon';
 import Card from '../Card';
 import FavIcon from '../FavIcon';
 
-import { CardsList, FloatingButton, ImageContainer, Item } from './styles';
+import {
+  CardsList,
+  FloatingButton,
+  ImageContainer,
+  Item,
+  Loading,
+} from './styles';
 
 const PokeList: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,12 +47,12 @@ const PokeList: React.FC = () => {
 
   return (
     <>
-      {!!pokemons && pokemons.length > 0 && (
-        <CardsList id="scroll-container">
+      <CardsList id="scroll-container">
+        {!!pokemons && pokemons.length > 0 && (
           <InfiniteScroll
             dataLength={pokemons.length}
             next={updatePage}
-            loader={<Loading />}
+            loader={<Loading isLoading={isLoading} />}
             endMessage={<p>Thats all folks!</p>}
             scrollableTarget="scroll-container"
             hasMore
@@ -69,10 +74,10 @@ const PokeList: React.FC = () => {
               </Item>
             ))}
           </InfiniteScroll>
-        </CardsList>
-      )}
+        )}
+      </CardsList>
       {!isLoading && !pokemons && <p>No results found!</p>}
-      {isLoading && <Loading />}
+      <Loading isLoading={isLoading} />
     </>
   );
 };

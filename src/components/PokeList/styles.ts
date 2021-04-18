@@ -1,4 +1,5 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+import ReactLoading from 'react-loading';
 
 export const CardsList = styled.div`
   height: 80vh;
@@ -102,4 +103,16 @@ export const ImageContainer = styled.div`
     height: 200px;
     width: 230px;
   }
+`;
+
+interface LoadingProps {
+  isLoading: boolean;
+}
+
+export const Loading = styled(ReactLoading)<LoadingProps>`
+  ${props =>
+    !props.isLoading &&
+    css`
+      opacity: 0;
+    `}
 `;
