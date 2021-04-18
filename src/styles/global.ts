@@ -15,6 +15,7 @@ export default createGlobalStyle`
     justify-content: space-between;
     align-items: center;
     margin: auto;
+    overflow-y: hidden;
 
     min-height: 100vh;
     max-width: 70vw;

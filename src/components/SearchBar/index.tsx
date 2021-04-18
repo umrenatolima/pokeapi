@@ -30,7 +30,7 @@ const SearchBar: React.FC = () => {
       if (pokemonName) {
         dispatch(getPokemonsByName(pokemonName));
       } else {
-        dispatch(getPokemons());
+        dispatch(getPokemons(0));
       }
     },
     [pokemonName, dispatch],

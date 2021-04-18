@@ -1,11 +1,33 @@
 import styled, { keyframes } from 'styled-components';
 
-export const CardsList = styled.ul`
-  list-style: none;
+export const CardsList = styled.div`
+  height: 80vh;
+  overflow-y: auto;
+  padding-right: 5px;
 
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 15px;
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(240, 240, 240, 0.8);
+    border-radius: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .infinite-scroll-component {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+  }
 `;
 
 const appearFromLeft = keyframes`
@@ -19,7 +41,7 @@ const appearFromLeft = keyframes`
   }
 `;
 
-export const Item = styled.li`
+export const Item = styled.div`
   position: relative;
   animation: ${appearFromLeft} 0.6s;
   transition: transform 0.6s ease;

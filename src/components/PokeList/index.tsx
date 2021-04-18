@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Loading from 'react-loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import {
   getFavoritePokemonsFromCache,
@@ -21,21 +22,36 @@ const PokeList: React.FC = () => {
   const { isLoading, pokemons } = useSelector(selectPokemons);
   const { favoritePokemons } = useSelector(selectFavorites);
 
+  const [page, setPage] = useState(0);
+
   useEffect(() => {
-    dispatch(getPokemons());
     dispatch(getFavoritePokemonsFromCache());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getPokemons(page));
+  }, [page, dispatch]);
 
   const onFavoriteClick = (pokemon: Pokemon): void => {
     dispatch(updateFavoritePokemons(pokemon));
   };
 
+  const updatePage = useCallback(() => {
+    setPage(page + 1);
+  }, [page]);
+
   return (
     <>
-      {isLoading && <Loading />}
-      {!isLoading &&
-        (!!pokemons && pokemons.length > 0 ? (
-          <CardsList>
+      {!!pokemons && pokemons.length > 0 && (
+        <CardsList id="scroll-container">
+          <InfiniteScroll
+            dataLength={pokemons.length}
+            next={updatePage}
+            loader={<Loading />}
+            endMessage={<p>Thats all folks!</p>}
+            scrollableTarget="scroll-container"
+            hasMore
+          >
             {pokemons.map((pokemon: Pokemon) => (
               <Item key={pokemon.name}>
                 <Card>
@@ -52,10 +68,11 @@ const PokeList: React.FC = () => {
                 </Card>
               </Item>
             ))}
-          </CardsList>
-        ) : (
-          <p>No results found!</p>
-        ))}
+          </InfiniteScroll>
+        </CardsList>
+      )}
+      {!isLoading && !pokemons && <p>No results found!</p>}
+      {isLoading && <Loading />}
     </>
   );
 };

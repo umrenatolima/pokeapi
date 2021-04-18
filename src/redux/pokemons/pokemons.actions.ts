@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import pokeAPI from '../../services/pokeAPI';
 import { Pokemon } from '../../types/Pokemon';
 import parsePokeAPIFactory from '../../utils/parsePokeAPIFactory';
+import { RootStore } from '../store';
 import {
   PokemonsDispatchTypes,
   POKEMONS_FAIL,
@@ -11,22 +12,31 @@ import {
   POKEMONS_UPDATE,
 } from './pokemons.types';
 
-export const getPokemons = () => async (
+export const getPokemons = (page: number) => async (
   dispatch: Dispatch<PokemonsDispatchTypes>,
+  getState: () => RootStore,
 ): Promise<void> => {
   dispatch({ type: POKEMONS_LOADING });
+
+  const {
+    pokemons: { pokemons },
+  } = getState();
 
   try {
     const {
       data: { results },
-    } = await pokeAPI.get('pokemon?limit=8&offset=0');
+    } = await pokeAPI.get(`pokemon?limit=16&offset=${page * 16}`);
 
     const { parse } = parsePokeAPIFactory();
     const parsedPokemonData = parse(results);
 
+    const concatPokemonData = pokemons
+      ? [...pokemons, ...parsedPokemonData]
+      : parsedPokemonData;
+
     dispatch({
       type: POKEMONS_SUCCESS,
-      payload: parsedPokemonData,
+      payload: concatPokemonData,
     });
   } catch (error) {
     dispatch({
