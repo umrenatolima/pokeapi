@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import Loading from 'react-loading';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Header from '../../components/Header';
@@ -11,7 +12,11 @@ import {
 } from '../../redux/favorites';
 import { getPokemons, selectPokemons } from '../../redux/pokemons';
 import { Pokemon } from '../../types/Pokemon';
-import { AnimationContainer, PokedexContainer } from './styles';
+import {
+  AnimationContainer,
+  LoadingContainer,
+  PokedexContainer,
+} from './styles';
 
 const Pokedex: React.FC = () => {
   const dispatch = useDispatch();
@@ -54,6 +59,9 @@ const Pokedex: React.FC = () => {
           favoritePokemons={favoritePokemons}
           onFavoriteClick={handleFavoriteClick}
         />
+        <LoadingContainer isLoading={isLoading}>
+          <Loading />
+        </LoadingContainer>
       </AnimationContainer>
     </PokedexContainer>
   );

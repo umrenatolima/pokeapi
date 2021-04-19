@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const PokedexContainer = styled.main`
   height: 100vh;
@@ -24,4 +24,16 @@ export const AnimationContainer = styled.div`
   height: 100%;
 
   animation: ${appearFromLeft} 1s;
+`;
+
+interface ILoadingContainerProps {
+  isLoading: boolean;
+}
+
+export const LoadingContainer = styled.footer<ILoadingContainerProps>`
+  ${props =>
+    !props.isLoading &&
+    css`
+      opacity: 0;
+    `}
 `;
