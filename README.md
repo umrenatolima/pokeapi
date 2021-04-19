@@ -22,6 +22,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### It should be able to show pokemon details information when clicking its name
 
-## TODO
-
-### Infinite scroll
+### It should be able to load new pokemons by scrolling down (infinite scrolling)
