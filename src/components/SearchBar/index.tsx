@@ -1,21 +1,24 @@
 import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { CgCardHearts } from 'react-icons/cg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { updateShowOnlyFavorites } from '../../redux/favorites';
 
-import { selectFavorites } from '../../redux/favorites';
 import {
   getPokemons,
   getPokemonsByName,
   updatePokemons,
 } from '../../redux/pokemons';
+import { Pokemon } from '../../types/Pokemon';
 import Input from '../Input';
 
 import { Button, FavoritesButton, SearchForm } from './styles';
 
-const SearchBar: React.FC = () => {
-  const dispatch = useDispatch();
+interface ISearchBarProps {
+  favoritePokemons: Pokemon[];
+}
 
-  const { favoritePokemons } = useSelector(selectFavorites);
+const SearchBar: React.FC<ISearchBarProps> = ({ favoritePokemons }) => {
+  const dispatch = useDispatch();
 
   const [pokemonName, setPokemonName] = useState('');
 
@@ -28,15 +31,18 @@ const SearchBar: React.FC = () => {
       e.preventDefault();
 
       if (pokemonName) {
+        dispatch(updateShowOnlyFavorites(true));
         dispatch(getPokemonsByName(pokemonName));
       } else {
-        dispatch(getPokemons(0));
+        dispatch(updateShowOnlyFavorites(false));
+        dispatch(getPokemons({ page: 0 }));
       }
     },
     [pokemonName, dispatch],
   );
 
   const handleShowFavoritesClick = useCallback(() => {
+    dispatch(updateShowOnlyFavorites(true));
     dispatch(updatePokemons(favoritePokemons));
   }, [favoritePokemons, dispatch]);
 

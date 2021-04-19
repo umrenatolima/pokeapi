@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = ({ hasBackButton = false }) => {
   const history = useHistory();
 
   const handleOnBackButtonClick = useCallback(() => {
-    history.push('/');
+    history.goBack();
   }, [history]);
 
   return (

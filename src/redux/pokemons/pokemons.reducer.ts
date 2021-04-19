@@ -28,7 +28,7 @@ export const pokemonsReducer = (
       return {
         pokemons: [],
         isLoading: false,
-        error: action.payload.error,
+        error: action.payload,
       };
     case POKEMONS_UPDATE:
       return {

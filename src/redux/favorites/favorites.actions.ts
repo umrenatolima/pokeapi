@@ -2,7 +2,11 @@ import { Dispatch } from 'react';
 
 import { Pokemon } from '../../types/Pokemon';
 import { RootStore } from '../store';
-import { FavoritesDispatchTypes, UPDATE_FAVORITES } from './favorites.types';
+import {
+  FavoritesDispatchTypes,
+  SET_FAVORITES_VISIBILITY,
+  UPDATE_FAVORITES,
+} from './favorites.types';
 
 export const updateFavoritePokemons = (pokemon: Pokemon) => (
   dispatch: Dispatch<FavoritesDispatchTypes>,
@@ -28,9 +32,7 @@ export const updateFavoritePokemons = (pokemon: Pokemon) => (
 
   dispatch({
     type: UPDATE_FAVORITES,
-    payload: {
-      favoritePokemons: updatedFavorites,
-    },
+    payload: updatedFavorites,
   });
 };
 
@@ -44,9 +46,16 @@ export const getFavoritePokemonsFromCache = () => (
 
     dispatch({
       type: UPDATE_FAVORITES,
-      payload: {
-        favoritePokemons: parsedFavorites,
-      },
+      payload: parsedFavorites,
     });
   }
+};
+
+export const updateShowOnlyFavorites = (showOnlyFavorites: boolean) => (
+  dispatch: Dispatch<FavoritesDispatchTypes>,
+): void => {
+  dispatch({
+    type: SET_FAVORITES_VISIBILITY,
+    payload: showOnlyFavorites,
+  });
 };

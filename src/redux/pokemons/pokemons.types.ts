@@ -21,9 +21,7 @@ export interface PokemonsUpdate {
 
 export interface PokemonsFail {
   type: typeof POKEMONS_FAIL;
-  payload: {
-    error: string;
-  };
+  payload: string;
 }
 
 export type PokemonsDispatchTypes =

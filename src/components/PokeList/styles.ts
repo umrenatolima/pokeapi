@@ -106,12 +106,12 @@ export const ImageContainer = styled.div`
 `;
 
 interface LoadingProps {
-  isLoading: boolean;
+  isloading: boolean;
 }
 
 export const Loading = styled(ReactLoading)<LoadingProps>`
   ${props =>
-    !props.isLoading &&
+    !props.isloading &&
     css`
       opacity: 0;
     `}
