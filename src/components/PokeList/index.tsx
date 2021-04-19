@@ -1,6 +1,5 @@
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Loading from 'react-loading';
 import { Link } from 'react-router-dom';
 
 import { Pokemon } from '../../types/Pokemon';
@@ -25,12 +24,13 @@ const Pokedex: React.FC<IPokedexProps> = ({
   onFavoriteClick,
 }) => (
   <>
+    {!isLoading && pokemons && !pokemons?.length && <p>No results found!</p>}
     <CardsList id="scroll-container">
       {!!pokemons && pokemons.length > 0 && (
         <InfiniteScroll
           dataLength={pokemons.length}
           next={onUpdatePage}
-          loader={<Loading />}
+          loader={<span />}
           endMessage={<p>Thats all folks!</p>}
           scrollableTarget="scroll-container"
           hasMore
@@ -54,7 +54,6 @@ const Pokedex: React.FC<IPokedexProps> = ({
         </InfiniteScroll>
       )}
     </CardsList>
-    {!isLoading && !pokemons && <p>No results found!</p>}
   </>
 );
 
